@@ -1,8 +1,9 @@
 # At-Someone
+
 A Powercord Plugin to @Someone randomly on the server
 
-### Installation
+## Installation
 
 Use this command to Install the Plugin
 
-``git clone https://github.com/SammCheese/At-Someone`` 
+``git clone https://github.com/SammCheese/At-Someone``
