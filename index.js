@@ -33,7 +33,7 @@ module.exports = class atSomeone extends Plugin {
         inject('as-mention-container', MENTIONS, 'renderResults', (args, res) => {
         if (args[7].globals.length === 2 || args[7].globals.length === 0) {
             args[7].globals.push({
-                description: 'Mentions Someone! [Not Yet]',
+                description: 'Mentions Someone!',
                 text: '@someone'
             });
         }
