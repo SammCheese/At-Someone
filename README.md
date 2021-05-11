@@ -2,6 +2,8 @@
 
 A Powercord Plugin to @Someone randomly on the server
 
+***WARNING: ACTUALLY PINGS PEOPLE!***
+
 ## Installation
 
 Use this command to Install the Plugin
