@@ -33,14 +33,15 @@ module.exports = {
           text="@someone"
           selected={selected}
           index={selected ? 1 : 0}
-          // TODO: Close modal
           onClick={() => {
             {
               sendMessage(channels.getChannelId(), {
                 content: `<@${getRandomUserID()}>`,
               });
             }
-            //Space for future close fix
+            require('powercord/webpack').FluxDispatcher
+              .dispatch({ type: 'DRAFT_CLEAR', channelId: 
+              channels.getChannelId(), draftType: 0 });
           }}
         />
       </div>
