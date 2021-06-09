@@ -4,10 +4,10 @@ const { inject, uninject } = require("powercord/injector");
 const { getModule, React } = require("powercord/webpack");
 
 const {
-  AUTOCOMPLETE_OPTIONS: { MENTIONS }
+  AUTOCOMPLETE_OPTIONS: { MENTIONS },
 } = getModule(["AUTOCOMPLETE_OPTIONS"], false);
 
-const Someone = require("./Someone");
+const { SomeonePatch, getRandomUserID } = require("./Someone");
 
 module.exports = class atSomeone extends Plugin {
   async startPlugin() {
@@ -20,9 +20,9 @@ module.exports = class atSomeone extends Plugin {
       async executor() {
         return {
           send: true,
-          result: `<@${getRandomUserID()}>`
+          result: `<@${getRandomUserID()}>`,
         };
-      }
+      },
     });
   }
 
@@ -30,7 +30,7 @@ module.exports = class atSomeone extends Plugin {
     inject("as-mention-container", MENTIONS, "renderResults", (args, res) => {
       if (!"someone".includes(args[1].toLowerCase())) return res;
 
-      res.props.children[3]?.unshift(React.createElement(Someone));
+      res.props.children[3]?.unshift(React.createElement(SomeonePatch));
       return res;
     });
   }
