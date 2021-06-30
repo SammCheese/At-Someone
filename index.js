@@ -12,6 +12,7 @@ const { SomeonePatch, getRandomUserID } = require("./Someone");
 module.exports = class atSomeone extends Plugin {
   async startPlugin() {
     this._injectAutoComplete();
+    powercord.PluginManager.remount('pc-spotify')
     powercord.api.commands.registerCommand({
       command: "@/Someone",
       aliases: ["@s"],
@@ -20,15 +21,15 @@ module.exports = class atSomeone extends Plugin {
       async executor() {
         return {
           send: true,
-          result: `<@${getRandomUserID()}>`,
+          result: `<@${getRandomUserID()}>`
         };
-      },
+      }
     });
   }
 
   _injectAutoComplete() {
     inject("as-mention-container", MENTIONS, "renderResults", (args, res) => {
-      if (!"someone".includes(args[1].toLowerCase())) return res;
+      if (!"someone".includes(args[4].toLowerCase())) return res;
 
       res.props.children[3]?.unshift(React.createElement(SomeonePatch));
       return res;
