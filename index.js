@@ -12,7 +12,6 @@ const { SomeonePatch, getRandomUserID } = require("./Someone");
 module.exports = class atSomeone extends Plugin {
   async startPlugin() {
     this._injectAutoComplete();
-    powercord.PluginManager.remount('pc-spotify')
     powercord.api.commands.registerCommand({
       command: "@/Someone",
       aliases: ["@s"],
