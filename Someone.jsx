@@ -3,15 +3,18 @@ const {
   getModuleByDisplayName,
   getModule,
   channels,
-} = require("powercord/webpack");
-const { Generic } = getModuleByDisplayName("Autocomplete", false);
-const { sendMessage } = getModule(["sendMessage"], false);
+} = require('powercord/webpack');
+const { Generic } = getModuleByDisplayName('Autocomplete', false);
+const { sendMessage } = getModule(['sendMessage'], false);
+const { ComponentDispatch } = getModule(['ComponentDispatch'], false);
 
 let toggleBool = true;
+let textContent = document.querySelector("div[class*='slateTextArea']").childNodes[0].childNodes[0];
+let textSave;
 
 function getRandomUserID() {
-  const Members = getModule(["getMemberIds"], false).getMemberIds(
-    getModule(["getLastSelectedGuildId"], false).getLastSelectedGuildId()
+  const Members = getModule(['getMemberIds'], false).getMemberIds(
+    getModule(['getLastSelectedGuildId'], false).getLastSelectedGuildId()
   );
   return Members[Math.floor(Math.random() * Members.length)];
 }
@@ -29,23 +32,20 @@ module.exports = {
         }}
       >
         <Generic
-          description="Mentions Someone!"
-          text="@someone"
+          description='Mentions Someone!'
+          text='@someone'
           selected={selected}
           index={selected ? 1 : 0}
           onClick={() => {
             {
-              sendMessage(channels.getChannelId(), {
-                content: `<@${getRandomUserID()}>`,
-              });
+              ComponentDispatch.dispatchToLastSubscribed('INSERT_TEXT', {
+                content: '<@someone>'
+              })
             }
-            require('powercord/webpack').FluxDispatcher
-              .dispatch({ type: 'DRAFT_CLEAR', channelId: 
-              channels.getChannelId(), draftType: 0 });
           }}
         />
       </div>
     );
   },
-  getRandomUserID,
+  getRandomUserID
 };
