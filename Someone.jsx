@@ -4,7 +4,7 @@ const {
   getModule,
   channels,
 } = require("powercord/webpack");
-const { Generic } = getModuleByDisplayName("AutoComplete", false);
+const { Generic } = getModuleByDisplayName("Autocomplete", false);
 const { sendMessage } = getModule(["sendMessage"], false);
 
 let toggleBool = true;

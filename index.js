@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 const { Plugin } = require("powercord/entities");
 const { inject, uninject } = require("powercord/injector");
-const { getModule, React } = require("powercord/webpack");
+const { getModule, React, messages } = require("powercord/webpack");
 
 const {
   AUTOCOMPLETE_OPTIONS: { MENTIONS },
@@ -12,11 +12,12 @@ const { SomeonePatch, getRandomUserID } = require("./Someone");
 module.exports = class atSomeone extends Plugin {
   async startPlugin() {
     this._injectAutoComplete();
+    this._injectMessage();
     powercord.api.commands.registerCommand({
-      command: "@/Someone",
-      aliases: ["@s"],
-      description: "Ats Someone",
-      usage: "",
+      command: '@/someone',
+      aliases: ['@s'],
+      description: 'Ats Someone',
+      usage: '',
       async executor() {
         return {
           send: true,
@@ -27,16 +28,26 @@ module.exports = class atSomeone extends Plugin {
   }
 
   _injectAutoComplete() {
-    inject("as-mention-container", MENTIONS, "renderResults", (args, res) => {
-      if (!"someone".includes(args[4].toLowerCase())) return res;
+    inject('as-mention-container', MENTIONS, 'renderResults', (args, res) => {
+      if (!'someone'.includes(args[4].toLowerCase())) return res;
 
       res.props.children[3]?.unshift(React.createElement(SomeonePatch));
       return res;
     });
   }
 
+  _injectMessage() {
+    inject('as-message-container', messages, 'sendMessage', (args) => {
+      if (args[1].content.includes('!@someone')) {
+        args[1].content = args[1].content.replace('!@someone', `<@${getRandomUserID()}>`);
+      }
+      return args;
+    });
+  }
+
   pluginWillUnload() {
-    powercord.api.commands.unregisterCommand("@/Someone");
-    uninject("as-mention-container");
+    powercord.api.commands.unregisterCommand('@/someone');
+    uninject('as-mention-container');
+    uninject('as-message-container');
   }
 };
