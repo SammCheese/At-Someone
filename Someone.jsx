@@ -39,7 +39,7 @@ module.exports = {
           onClick={() => {
             {
               ComponentDispatch.dispatchToLastSubscribed('INSERT_TEXT', {
-                content: '<@someone>'
+                content: '@!someone'
               })
             }
           }}

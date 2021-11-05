@@ -38,9 +38,9 @@ module.exports = class atSomeone extends Plugin {
 
   _injectMessage() {
     inject('as-message-container', messages, 'sendMessage', (args) => {
-      if (args[1].content.includes('<@someone>')) {
-        if (args[1].content.includes('@<@someone>')) args[1].content = args[1].content.replace('@<@someone>', '<@someone>');
-        args[1].content = args[1].content.replace('<@someone>', `<@${getRandomUserID()}>`);
+      if (args[1].content.includes('@!someone')) {
+        if (args[1].content.includes('@@!someone')) args[1].content = args[1].content.replace('@@!someone', '@!someone');
+        args[1].content = args[1].content.replace('@!someone', `<@${getRandomUserID()}>`);
       }
       return args;
     });
