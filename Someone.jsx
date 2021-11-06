@@ -1,16 +1,10 @@
 const {
   React,
   getModuleByDisplayName,
-  getModule,
-  channels,
+  getModule
 } = require('powercord/webpack');
 const { Generic } = getModuleByDisplayName('Autocomplete', false);
-const { sendMessage } = getModule(['sendMessage'], false);
 const { ComponentDispatch } = getModule(['ComponentDispatch'], false);
-
-let toggleBool = true;
-let textContent = document.querySelector("div[class*='slateTextArea']").childNodes[0].childNodes[0];
-let textSave;
 
 function getRandomUserID() {
   const Members = getModule(['getMemberIds'], false).getMemberIds(
