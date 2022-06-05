@@ -29,7 +29,7 @@ module.exports = class atSomeone extends Plugin {
 
   _injectAutoComplete() {
     inject('as-mention-container', MENTIONS, 'renderResults', (args, res) => {
-      if (!'someone'.includes(args[4].toLowerCase())) return res;
+      if (!'someone'.includes(args[0].query.toLowerCase())) return res;
 
       res.props.children[3]?.unshift(React.createElement(SomeonePatch));
       return res;
